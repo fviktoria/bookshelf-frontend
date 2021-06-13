@@ -1,5 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useBookQuery } from '../hooks/queries/use-books-query';
+import { fetcher } from '../util/fetcher';
 
 export const Home: FC = () => {
-  return <div>Home</div>
-}
+  const { books } = useBookQuery();
+  console.log(books);
+
+  return <div>Home</div>;
+};
