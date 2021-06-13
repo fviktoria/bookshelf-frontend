@@ -6,5 +6,5 @@ export const Home: FC = () => {
   const { books } = useBookQuery();
   console.log(books);
 
-  return <div>Home</div>;
+  return <div>huh?</div>;
 };
