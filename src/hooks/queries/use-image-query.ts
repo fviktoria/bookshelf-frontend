@@ -9,7 +9,7 @@ export const fetchImage = (id: number): Promise<any> => {
 export const useImageQuery = (id: number): ImageQueryRes => {
   const { data, error } = useSWR('/media/' + id, () => fetchImage(id));
   return {
-    image: data,
+    image: data && data.data,
     error,
     isLoading: !data && !error,
   };

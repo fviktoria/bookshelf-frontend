@@ -6,15 +6,15 @@ const TOKEN = Cookies.get('token') || undefined;
 
 export const fetcher = async <Req>(method: Method, endpoint: string, data?: Req) => {
   const headers = {};
-  return (
-    await axios({
-      method,
-      url: `${API_URL}${endpoint}`,
-      data,
-      params: method === 'get' ? data : undefined,
-      headers: {
-        ...(TOKEN && { Authorization: `Bearer ${TOKEN}` }),
-      },
-    })
-  ).data;
+  const res = await axios({
+    method,
+    url: `${API_URL}${endpoint}`,
+    data,
+    params: method === 'get' ? data : undefined,
+    headers: {
+      ...(TOKEN && { Authorization: `Bearer ${TOKEN}` }),
+    },
+  });
+
+  return res;
 };
