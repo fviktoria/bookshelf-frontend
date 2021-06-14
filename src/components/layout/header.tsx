@@ -4,13 +4,17 @@ import { Column } from './column';
 import { Container } from './container';
 import { Row } from './row';
 
-export const Header: FC = () => {
+type HeaderProps = {
+  isLoggedIn: boolean;
+};
+
+export const Header: FC<HeaderProps> = ({ isLoggedIn }) => {
   return (
     <StyledHeader>
       <Container wide>
         <Row>
           <Column>Bookshelf</Column>
-          <Column>Login</Column>
+          {!isLoggedIn && <Column>Login</Column>}
         </Row>
       </Container>
     </StyledHeader>

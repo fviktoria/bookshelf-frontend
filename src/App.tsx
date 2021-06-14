@@ -1,45 +1,30 @@
 import Cookies from 'js-cookie';
 import React, { Fragment, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import { Header } from './components/layout/header';
+import { Bookshelf } from './pages/bookshelf';
 import { Home } from './pages/home';
 import { Login } from './pages/login';
 import GlobalStyle from './util/global-styles';
-import { validate } from './util/validate';
+import { useValidateToken, validate } from './util/validate';
 
 export const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    const validateToken = async () => {
-      const token = Cookies.get('token');
+  const { data, error, isLoading } = useValidateToken();
+  const isLoggedIn = data && data.data.status === 200 ? true : undefined;
 
-      if (token) {
-        try {
-          const res = await validate(token);
-          setIsLoggedIn(true);
-        } catch (error) {
-          console.log(error);
-          setIsLoggedIn(false);
-        }
-      } else {
-        setIsLoggedIn(false);
-      }
-    };
-
-    validateToken();
-  }, []);
   return (
     <Fragment>
       <GlobalStyle />
-      <Header />
-      <Router>
-        <Route exact={true} path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Router>
+      <Header isLoggedIn={false} />
+      {!isLoading && (
+        <Router>
+          <Route exact={true} path="/">
+            <Home />
+          </Route>
+          <Route path="/login">{isLoggedIn ? <Redirect to="/" /> : <Login />}</Route>
+          <Route path="/bookshelf">{!isLoggedIn ? <Redirect to="/login" /> : <Bookshelf />}</Route>
+        </Router>
+      )}
     </Fragment>
   );
 };
