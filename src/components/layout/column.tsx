@@ -1,8 +1,14 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-export const Column: FC = ({ children }) => {
-  return <StyledColumn>{children}</StyledColumn>;
+type ColumnProps = {
+  width?: number;
 };
 
-const StyledColumn = styled.div``;
+export const Column: FC<ColumnProps> = ({ width = 100, children }) => {
+  return <StyledColumn width={width}>{children}</StyledColumn>;
+};
+
+const StyledColumn = styled.div<ColumnProps>`
+  width: ${({ width }) => width + '%'};
+`;
