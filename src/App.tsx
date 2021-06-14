@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
-import React, { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import { Header } from './components/layout/header';
 import { useUserQuery } from './hooks/queries/use-user-query';
@@ -9,7 +9,7 @@ import { Home } from './pages/home';
 import { Login } from './pages/login';
 import GlobalStyle from './util/global-styles';
 import { UserContext } from './util/user-context';
-import { useValidateToken, validate } from './util/validate';
+import { useValidateToken } from './util/validate';
 
 type UserToken = {
   data: {
