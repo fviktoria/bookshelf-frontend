@@ -30,10 +30,10 @@ export const App = () => {
   return (
     <Fragment>
       <GlobalStyle />
-      <Header isLoggedIn={false} />
       {!isLoading && (
         <UserContext.Provider value={user}>
           <Router>
+            <Header isLoggedIn={false} />
             <Route exact={true} path="/">
               <Home />
             </Route>

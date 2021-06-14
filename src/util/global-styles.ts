@@ -7,6 +7,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Titillium Web', sans-serif;
     font-size: 16px;
   }
+
+  img {
+    max-width: 100%;
+  }
 `;
 
 export default GlobalStyle;
