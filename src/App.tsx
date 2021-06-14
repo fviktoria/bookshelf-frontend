@@ -20,7 +20,7 @@ type UserToken = {
 };
 
 export const App = () => {
-  const { data, error, isLoading } = useValidateToken();
+  const { data, isLoading } = useValidateToken();
   const isLoggedIn = data && data.data.status === 200 ? true : undefined;
   const token = Cookies.get('token');
   const decodedToken: UserToken | undefined = token ? jwtDecode(token) : undefined;

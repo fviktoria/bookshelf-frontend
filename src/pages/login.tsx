@@ -26,9 +26,7 @@ export const Login: FC = () => {
               return errors;
             }}
             onSubmit={async (values, { setSubmitting }) => {
-              console.log(values);
               const res = await authenticate({ username: values.username, password: values.password });
-              console.log(res);
 
               if (res.token) {
                 Cookies.set('token', res.token, { expires: 1 });

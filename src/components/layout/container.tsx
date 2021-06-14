@@ -6,7 +6,6 @@ type ContainerProps = {
 };
 
 export const Container: FC<ContainerProps> = ({ wide = false, children }) => {
-  console.log('wide?', wide);
   return <StyledContainer wide={wide}>{children}</StyledContainer>;
 };
 
