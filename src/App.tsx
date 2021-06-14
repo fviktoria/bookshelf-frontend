@@ -20,24 +20,22 @@ type UserToken = {
 };
 
 export const App = () => {
-  const { data, isLoading } = useValidateToken();
-  const isLoggedIn = data && data.data.status === 200 ? true : undefined;
   const token = Cookies.get('token');
   const decodedToken: UserToken | undefined = token ? jwtDecode(token) : undefined;
-  const { user } = useUserQuery(decodedToken?.data.user.id);
+  const { user, isLoading } = useUserQuery(decodedToken?.data.user.id);
 
   return (
     <Fragment>
       <GlobalStyle />
-      {!isLoading && user && (
+      {!isLoading && (
         <UserContext.Provider value={user}>
           <Router>
             <Header isLoggedIn={false} />
             <Route exact={true} path="/">
               <Home />
             </Route>
-            <Route path="/login">{isLoggedIn ? <Redirect to="/" /> : <Login />}</Route>
-            <Route path="/bookshelf">{!isLoggedIn ? <Redirect to="/login" /> : <Bookshelf />}</Route>
+            <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
+            <Route path="/bookshelf">{!user ? <Redirect to="/login" /> : <Bookshelf />}</Route>
           </Router>
         </UserContext.Provider>
       )}
