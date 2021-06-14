@@ -5,7 +5,7 @@ export const fetchUser = (id?: string): Promise<any> => {
   return fetcher('GET', '/users/' + id);
 };
 
-export const useUserQuery = (id?: string): UserQueryRes => {
+export const useUserQuery = (id: string = '0'): UserQueryRes => {
   const { data, error } = useSWR('/users/' + id, () => fetchUser(id));
   return {
     user: data,

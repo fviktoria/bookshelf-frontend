@@ -5,8 +5,8 @@ import { useUserContext } from '../util/user-context';
 
 export const Bookshelf: FC = () => {
   const user = useUserContext();
-  console.log(user);
-  const data = useBookQuery(user && user.acf?.books);
+  console.log('bookshelf user', user);
+  const data = useBookQuery(/*user && user.acf?.books*/);
 
   return <BookList data={data} />;
 };

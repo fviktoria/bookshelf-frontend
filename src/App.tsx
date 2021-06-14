@@ -22,7 +22,7 @@ type UserToken = {
 export const App = () => {
   const token = Cookies.get('token');
   const decodedToken: UserToken | undefined = token ? jwtDecode(token) : undefined;
-  const { user, isLoading } = useUserQuery(decodedToken?.data.user.id);
+  const { user, isLoading, error } = useUserQuery(decodedToken?.data.user.id);
 
   return (
     <Fragment>
