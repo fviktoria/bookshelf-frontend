@@ -2,7 +2,7 @@ import { Book } from './book';
 
 export type User = {
   acf: {
-    books: Book[];
+    books: string[];
     friends: false;
   };
   avatar_urls: any;

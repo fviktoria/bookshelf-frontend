@@ -25,12 +25,11 @@ export const App = () => {
   const token = Cookies.get('token');
   const decodedToken: UserToken | undefined = token ? jwtDecode(token) : undefined;
   const { user } = useUserQuery(decodedToken?.data.user.id);
-  console.log('user', user);
 
   return (
     <Fragment>
       <GlobalStyle />
-      {!isLoading && (
+      {!isLoading && user && (
         <UserContext.Provider value={user}>
           <Router>
             <Header isLoggedIn={false} />

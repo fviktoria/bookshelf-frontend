@@ -3,12 +3,14 @@ import { fetcher } from '../../util/fetcher';
 import { Book } from '../../util/types/book';
 import { Post } from '../../util/types/post';
 
-export const fetchBooks = (): Promise<any> => {
-  return fetcher('GET', '/book');
+export const fetchBooks = (ids?: string[]): Promise<any> => {
+  const endpoint = ids ? '/book/?include=' + ids.join(',') : '/book';
+  return fetcher('GET', endpoint);
 };
 
-export const useBookQuery = (): BookQueryRes => {
-  const { data, error } = useSWR('/book', fetchBooks);
+export const useBookQuery = (ids?: string[]): BookQueryRes => {
+  const key = ids ? '/book/?include=' + ids.join(',') : '/book';
+  const { data, error } = useSWR(key, () => fetchBooks(ids));
   return {
     books: data,
     error,
@@ -16,7 +18,7 @@ export const useBookQuery = (): BookQueryRes => {
   };
 };
 
-type BookQueryRes = {
+export type BookQueryRes = {
   books: Post<Book>[];
   error: boolean;
   isLoading: boolean;

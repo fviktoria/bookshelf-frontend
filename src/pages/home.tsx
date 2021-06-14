@@ -1,8 +1,13 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
+import { BookList } from '../components/book-list/book-list';
 import { useBookQuery } from '../hooks/queries/use-books-query';
 
 export const Home: FC = () => {
-  const { books } = useBookQuery();
+  const data = useBookQuery();
 
-  return <div>huh?</div>;
+  return (
+    <Fragment>
+      <BookList data={data} />
+    </Fragment>
+  );
 };
