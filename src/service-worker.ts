@@ -78,3 +78,24 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
+self.addEventListener('fetch', function (event) {
+  console.log(`Request of ${event.request.url}`);
+
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      if (response) return response;
+      let fetchRequest = event.request.clone();
+
+      return fetch(fetchRequest).then((response) => {
+        if (!response || response.status != 200) return response;
+
+        let responseToCache = response.clone();
+        caches.open('bookshelf').then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
+        return response;
+      });
+    }),
+  );
+});
