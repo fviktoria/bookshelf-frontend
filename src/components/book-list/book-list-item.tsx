@@ -3,26 +3,31 @@ import styled from 'styled-components';
 import { useImageQuery } from '../../hooks/queries/use-image-query';
 import { Book } from '../../util/types/book';
 import { Post } from '../../util/types/post';
+import { WPQueryPost } from '../../util/types/wp-query-post';
 import { Column } from '../layout/column';
 import { Container } from '../layout/container';
 import { Row } from '../layout/row';
 
 type BookListItemProps = {
-  book: Post<Book>;
+  book: WPQueryPost<Book>;
 };
 
 export const BookListItem: FC<BookListItemProps> = ({ book }) => {
-  const { image } = useImageQuery(book.featured_media);
+  //const { image } = useImageQuery(book.featured_media);
 
   return (
     <StyledBookListItem>
       <Container wide>
         <Row>
           <Column width={30}>
-            {image ? <StyledBookThumbnail src={image.source_url} alt={image.alt_text} /> : 'No image found.'}
+            {book.featured_image_url ? (
+              <StyledBookThumbnail src={book.featured_image_url} alt={book.post_title} />
+            ) : (
+              'No image found.'
+            )}
           </Column>
           <Column>
-            <StyledBookListItemTitle>{book.title.rendered}</StyledBookListItemTitle>
+            <StyledBookListItemTitle>{book.post_title}</StyledBookListItemTitle>
           </Column>
         </Row>
       </Container>

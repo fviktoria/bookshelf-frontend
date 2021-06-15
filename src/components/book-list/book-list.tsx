@@ -25,7 +25,7 @@ export const BookList: FC<BookListProps> = ({ data, onPaginate, currentPage }) =
 
   return (
     <Container wide>
-      {!isLoading && books.map((book) => <BookListItem book={book} key={book.id} />)}
+      {!isLoading && books.map((book) => <BookListItem book={book} key={book.ID} />)}
       <Pagination currentPage={currentPage} totalPages={parseInt(totalPages)} onClickItem={onPaginate} />
     </Container>
   );

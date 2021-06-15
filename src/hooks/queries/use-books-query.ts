@@ -1,18 +1,21 @@
 import useSWR from 'swr';
+import { API_BOOKSHELF, API_WP } from '../../util/constants';
 import { fetcher } from '../../util/fetcher';
 import { Book } from '../../util/types/book';
 import { Post } from '../../util/types/post';
+import { WPQueryPost } from '../../util/types/wp-query-post';
 
 export const fetchBooks = (ids?: string[], page?: number): Promise<any> => {
-  const endpoint = ids
-    ? '/book/?include=' + ids.join(',') + '&per_page=5&page=' + page
-    : '/book?per_page=5&page=' + page;
-  return fetcher('GET', endpoint);
+  const args = {
+    ...(ids && { include: ids }),
+    per_page: 5,
+    page: page || 1,
+  };
+  return fetcher('POST', API_BOOKSHELF + '/books', args);
 };
 
 export const useBookQuery = (ids?: string[], page?: number): BookQueryRes => {
-  const key = ids ? '/book/?include=' + ids.join(',') : '/book';
-  const { data, error } = useSWR(key + '?page=' + page, () => fetchBooks(ids, page));
+  const { data, error } = useSWR('/books?page' + page, () => fetchBooks(ids, page));
   return {
     books: data && data.data,
     headers: data && data.headers,
@@ -22,7 +25,7 @@ export const useBookQuery = (ids?: string[], page?: number): BookQueryRes => {
 };
 
 export type BookQueryRes = {
-  books: Post<Book>[];
+  books: WPQueryPost<Book>[];
   headers: any;
   error: boolean;
   isLoading: boolean;

@@ -1,9 +1,10 @@
 import useSWR from 'swr';
+import { API_WP } from '../../util/constants';
 import { fetcher } from '../../util/fetcher';
 import { Media } from '../../util/types/media';
 
 export const fetchImage = (id: number): Promise<any> => {
-  return fetcher('GET', '/media/' + id);
+  return fetcher('GET', API_WP + '/media/' + id);
 };
 
 export const useImageQuery = (id: number): ImageQueryRes => {
