@@ -7,15 +7,15 @@ import { WPQueryPost } from '../../util/types/wp-query-post';
 
 export const fetchBooks = (ids?: string[], page?: number): Promise<any> => {
   const args = {
-    ...(ids && { include: ids }),
+    ...(ids && { include: ids.join(',') }),
     per_page: 5,
     page: page || 1,
   };
-  return fetcher('POST', API_BOOKSHELF + '/books', args);
+  return fetcher('GET', API_BOOKSHELF + '/books', args);
 };
 
 export const useBookQuery = (ids?: string[], page?: number): BookQueryRes => {
-  const { data, error } = useSWR('/books?page' + page, () => fetchBooks(ids, page));
+  const { data, error } = useSWR(`/books?page=${page}&include=${ids?.join(',')}`, () => fetchBooks(ids, page));
   return {
     books: data && data.data,
     headers: data && data.headers,

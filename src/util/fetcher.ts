@@ -10,7 +10,7 @@ export const fetcher = async <Req>(method: Method, endpoint: string, data?: Req)
     method,
     url: `${API_URL}${endpoint}`,
     data,
-    params: method === 'get' ? data : undefined,
+    params: method === 'get' || method === 'GET' ? data : undefined,
     headers: {
       ...(TOKEN && { Authorization: `Bearer ${TOKEN}` }),
     },
