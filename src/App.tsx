@@ -27,18 +27,16 @@ export const App = () => {
   return (
     <Fragment>
       <GlobalStyle />
-      {!isLoading && (
-        <UserContext.Provider value={user}>
-          <Router>
-            <Header isLoggedIn={false} />
-            <Route exact={true} path="/">
-              <Home />
-            </Route>
-            <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
-            <Route path="/bookshelf">{!user ? <Redirect to="/login" /> : <Bookshelf />}</Route>
-          </Router>
-        </UserContext.Provider>
-      )}
+      <UserContext.Provider value={user}>
+        <Router>
+          <Header isLoggedIn={false} />
+          <Route exact={true} path="/">
+            <Home />
+          </Route>
+          <Route path="/login">{!isLoading && user ? <Redirect to="/" /> : <Login />}</Route>
+          {!isLoading && <Route path="/bookshelf">{!user ? <Redirect to="/login" /> : <Bookshelf />}</Route>}
+        </Router>
+      </UserContext.Provider>
     </Fragment>
   );
 };
