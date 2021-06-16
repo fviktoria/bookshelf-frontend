@@ -5,17 +5,20 @@ import { Book } from '../../util/types/book';
 import { Post } from '../../util/types/post';
 import { WPQueryPost } from '../../util/types/wp-query-post';
 
-export const fetchBooks = (ids?: string[], page?: number): Promise<any> => {
+export const fetchBooks = (ids?: string[], page?: number, genres?: number[]): Promise<any> => {
   const args = {
     ...(ids && { include: ids.join(',') }),
     per_page: 5,
     page: page || 1,
+    ...(genres && { genres: genres.join(',') }),
   };
   return fetcher('GET', API_BOOKSHELF + '/books', args);
 };
 
-export const useBookQuery = (ids?: string[], page?: number): BookQueryRes => {
-  const { data, error } = useSWR(`/books?page=${page}&include=${ids?.join(',')}`, () => fetchBooks(ids, page));
+export const useBookQuery = (ids?: string[], page?: number, genres?: number[]): BookQueryRes => {
+  const { data, error } = useSWR(`/books?page=${page}&include=${ids?.join(',')}&genres=${genres?.join(',')}`, () =>
+    fetchBooks(ids, page, genres),
+  );
   return {
     books: data && data.data,
     headers: data && data.headers,
