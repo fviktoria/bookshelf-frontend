@@ -5,7 +5,9 @@ import { useGenreQuery } from '../../hooks/queries/use-genre-query';
 import { Book } from '../../util/types/book';
 import { Post } from '../../util/types/post';
 import { useUserContext } from '../../util/user-context';
+import { Column } from '../layout/column';
 import { Container } from '../layout/container';
+import { Row } from '../layout/row';
 import { Pagination } from '../pagination/pagination';
 import { BookFilters } from './book-filters';
 import { BookListItem } from './book-list-item';
@@ -30,9 +32,13 @@ export const BookList: FC<BookListProps> = ({ data, onPaginate, currentPage, onF
 
   return (
     <Container wide>
-      {genres && <BookFilters filters={genres} onFilter={onFilter} />}
-      {!isLoading && books.map((book) => <BookListItem book={book} key={book.ID} />)}
-      <Pagination currentPage={currentPage} totalPages={parseInt(totalPages)} onClickItem={onPaginate} />
+      <Row>
+        <Column width={30}>{genres && <BookFilters filters={genres} onFilter={onFilter} />}</Column>
+        <Column>
+          {!isLoading && books.map((book) => <BookListItem book={book} key={book.ID} />)}
+          <Pagination currentPage={currentPage} totalPages={parseInt(totalPages)} onClickItem={onPaginate} />
+        </Column>
+      </Row>
     </Container>
   );
 };
