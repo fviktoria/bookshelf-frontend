@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import { Mutator, MutatorCallback } from 'swr/dist/types';
 import { API_BOOKSHELF, API_WP } from '../../util/constants';
 import { fetcher } from '../../util/fetcher';
 import { Book } from '../../util/types/book';
@@ -16,14 +17,16 @@ export const fetchBooks = (ids?: string[], page?: number, genres?: number[]): Pr
 };
 
 export const useBookQuery = (ids?: string[], page?: number, genres?: number[]): BookQueryRes => {
-  const { data, error } = useSWR(`/books?page=${page}&include=${ids?.join(',')}&genres=${genres?.join(',')}`, () =>
-    fetchBooks(ids, page, genres),
+  const { data, error, mutate } = useSWR(
+    `/books?page=${page}&include=${ids?.join(',')}&genres=${genres?.join(',')}`,
+    () => fetchBooks(ids, page, genres),
   );
   return {
     books: data && data.data,
     headers: data && data.headers,
     error,
     isLoading: !data && !error,
+    mutate,
   };
 };
 
@@ -32,4 +35,5 @@ export type BookQueryRes = {
   headers: any;
   error: boolean;
   isLoading: boolean;
+  mutate: MutatorCallback;
 };

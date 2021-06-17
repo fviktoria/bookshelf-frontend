@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import { Header } from './components/layout/header';
 import { useUserQuery } from './hooks/queries/use-user-query';
+import { Book } from './pages/book';
 import { Bookshelf } from './pages/bookshelf';
 import { Home } from './pages/home';
 import { Login } from './pages/login';
@@ -35,6 +36,9 @@ export const App = () => {
           </Route>
           <Route path="/login">{!isLoading && user ? <Redirect to="/" /> : <Login />}</Route>
           {!isLoading && <Route path="/bookshelf">{!user ? <Redirect to="/login" /> : <Bookshelf />}</Route>}
+          <Route path="/book/:id">
+            <Book />
+          </Route>
         </Router>
       </UserContext.Provider>
     </Fragment>
