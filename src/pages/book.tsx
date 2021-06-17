@@ -1,12 +1,14 @@
 import { Formik } from 'formik';
-import { FC, Fragment } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { mutate } from 'swr';
 import { Container } from '../components/layout/container';
 import { Row } from '../components/layout/row';
-import { postComment } from '../hooks/mutations/use-comment-mutation';
+import { deleteComment, postComment } from '../hooks/mutations/use-comment-mutation';
 import { useBookQuery } from '../hooks/queries/use-books-query';
+import { useCommentsQuery } from '../hooks/queries/use-comments-query';
 import { API_BOOKSHELF, API_WP } from '../util/constants';
+import { Comment } from '../util/types/comment';
 import { useUserContext } from '../util/user-context';
 
 type CommentFormErrors = {
@@ -17,8 +19,8 @@ export const Book: FC = () => {
   const { id } = useParams<{ id: string }>();
   const { books, mutate: mutateBook } = useBookQuery([id]);
   const book = books && books[0];
+  const { comments, mutate: mutateComments } = useCommentsQuery(book && book.ID);
   const user = useUserContext();
-  const comments = book && book.comments;
 
   return (
     <Container>
@@ -27,10 +29,20 @@ export const Book: FC = () => {
           <h2>{book.post_title}</h2>
           {comments &&
             comments.map((comment) => (
-              <div key={comment.comment_ID}>
-                <strong>{comment.comment_author}</strong>
+              <div key={comment.id}>
+                <strong>{comment.author_name}</strong>
                 <br />
-                {comment.comment_content}
+                <div dangerouslySetInnerHTML={{ __html: comment.content.rendered }} />
+                {user.id === comment.author && (
+                  <button
+                    onClick={() => {
+                      deleteComment(comment.id);
+                      mutateComments({ comments });
+                    }}
+                  >
+                    delete comment
+                  </button>
+                )}
               </div>
             ))}
           {user !== undefined && book.comment_status === 'open' && (
@@ -48,9 +60,12 @@ export const Book: FC = () => {
 
                 try {
                   const res = await mutate(API_WP + '/comments', postComment(user.id || 0, values.message, book.ID));
-                  comments?.push(res.data);
-                  console.log('comments', comments);
-                  mutateBook({ ...book, comments });
+
+                  if (res.data) {
+                    const newComment = res.data;
+                    mutateComments({ ...comments, newComment });
+                  }
+
                   return res;
                 } catch (error) {
                   console.log('comment mutation error: ', error);
