@@ -10,7 +10,6 @@ import { Home } from './pages/home';
 import { Login } from './pages/login';
 import GlobalStyle from './util/global-styles';
 import { UserContext } from './util/user-context';
-import { useValidateToken } from './util/validate';
 
 type UserToken = {
   data: {

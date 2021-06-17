@@ -1,9 +1,8 @@
 import useSWR from 'swr';
-import { Mutator, MutatorCallback } from 'swr/dist/types';
-import { API_BOOKSHELF, API_WP } from '../../util/constants';
+import { MutatorCallback } from 'swr/dist/types';
+import { API_BOOKSHELF } from '../../util/constants';
 import { fetcher } from '../../util/fetcher';
 import { Book } from '../../util/types/book';
-import { Post } from '../../util/types/post';
 import { WPQueryPost } from '../../util/types/wp-query-post';
 
 export const fetchBooks = (ids?: string[], page?: number, genres?: number[]): Promise<any> => {

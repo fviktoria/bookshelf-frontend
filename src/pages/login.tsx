@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import Cookies from 'js-cookie';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Column } from '../components/layout/column';
 import { Container } from '../components/layout/container';
 import { Row } from '../components/layout/row';

@@ -1,5 +1,3 @@
-import { Book } from './book';
-
 export type User = {
   acf: {
     books: string[];

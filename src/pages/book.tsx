@@ -1,14 +1,12 @@
 import { Formik } from 'formik';
-import { FC, Fragment, useEffect, useState } from 'react';
+import { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { mutate } from 'swr';
 import { Container } from '../components/layout/container';
-import { Row } from '../components/layout/row';
 import { deleteComment, postComment } from '../hooks/mutations/use-comment-mutation';
 import { useBookQuery } from '../hooks/queries/use-books-query';
 import { useCommentsQuery } from '../hooks/queries/use-comments-query';
-import { API_BOOKSHELF, API_WP } from '../util/constants';
-import { Comment } from '../util/types/comment';
+import { API_WP } from '../util/constants';
 import { useUserContext } from '../util/user-context';
 
 type CommentFormErrors = {
@@ -29,6 +27,7 @@ export const Book: FC = () => {
           <h2>{book.post_title}</h2>
           {comments &&
             comments.map((comment) => (
+              /* TODO: implement comment pagination */
               <div key={comment.id}>
                 <strong>{comment.author_name}</strong>
                 <br />
@@ -36,6 +35,7 @@ export const Book: FC = () => {
                 {user.id === comment.author && (
                   <button
                     onClick={() => {
+                      /* TODO: ask before deletion */
                       deleteComment(comment.id);
                       mutateComments({ comments });
                     }}

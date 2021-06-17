@@ -1,4 +1,3 @@
-import { mutate } from 'swr';
 import { API_WP } from '../../util/constants';
 import { fetcher } from '../../util/fetcher';
 
