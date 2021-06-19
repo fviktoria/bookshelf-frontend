@@ -1,4 +1,6 @@
 export type Book = {
-  authors: any;
+  authors: {
+    post_title: string;
+  }[];
   description: string;
 };
