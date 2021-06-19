@@ -34,7 +34,7 @@ export const BookList: FC<BookListProps> = ({ data, onPaginate, currentPage, onF
     <Container wide>
       <Row>
         <Column width={30}>{genres && <BookFilters filters={genres} onFilter={onFilter} />}</Column>
-        <Column>
+        <Column width={70}>
           {!isLoading && books.map((book) => <BookListItem book={book} key={book.ID} />)}
           <Pagination currentPage={currentPage} totalPages={parseInt(totalPages)} onClickItem={onPaginate} />
         </Column>

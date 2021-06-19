@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
   img {
     max-width: 100%;
   }
+
+  a {
+    color: #000;
+  }
 `;
 
 export default GlobalStyle;

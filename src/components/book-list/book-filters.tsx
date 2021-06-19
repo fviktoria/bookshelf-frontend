@@ -20,6 +20,9 @@ export const BookFilters: FC<BookFiltersProps> = ({ filters, onFilter }) => {
 
 const StyledBookFilters = styled.ul`
   list-style-type: none;
-  padding: 0;
-  margin: 0;
+  padding: 1em;
+  margin-top: 1.5em;
+  margin-right: 2em;
+  background-color: #f0f0f0;
+  border-radius: 1em;
 `;

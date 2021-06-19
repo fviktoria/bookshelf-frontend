@@ -26,8 +26,10 @@ export const BookListItem: FC<BookListItemProps> = ({ book }) => {
               'No image found.'
             )}
           </Column>
-          <Column>
-            <StyledBookListItemTitle>{book.post_title}</StyledBookListItemTitle>
+          <Column width={100}>
+            <StyledBookListItemDescription>
+              <StyledBookListItemTitle>{book.post_title}</StyledBookListItemTitle>
+            </StyledBookListItemDescription>
           </Column>
         </Row>
       </Container>
@@ -42,8 +44,14 @@ const StyledBookListItem = styled.div`
   margin: 0.5em 0;
 `;
 
+const StyledBookListItemDescription = styled.div`
+  padding-left: 1em;
+`;
+
 const StyledBookListItemTitle = styled.h3``;
 
 const StyledBookThumbnail = styled.img`
   width: 100%;
+  display: block;
+  border-radius: 1em;
 `;

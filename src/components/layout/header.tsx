@@ -17,15 +17,24 @@ export const Header: FC<HeaderProps> = ({ isLoggedIn }) => {
   return (
     <StyledHeader>
       <Container wide>
-        <Row>
-          <Column width={10}>
+        <Row justify="space-between" align="center">
+          <Column>
             <Link to="/">
-              <img src={Logo} />
+              <StyledLogo src={Logo} />
+              <StyledPageTitle>Bookshelf</StyledPageTitle>
             </Link>
           </Column>
           <Column>
-            {!user && <Link to="/login">Login</Link>}
-            {user && <Link to="/bookshelf">My Bookshelf</Link>}
+            {!user && (
+              <StyledNavLink>
+                <Link to="/login">Login</Link>
+              </StyledNavLink>
+            )}
+            {user && (
+              <StyledNavLink>
+                <Link to="/bookshelf">My Bookshelf</Link>
+              </StyledNavLink>
+            )}
           </Column>
         </Row>
       </Container>
@@ -35,7 +44,25 @@ export const Header: FC<HeaderProps> = ({ isLoggedIn }) => {
 
 const StyledHeader = styled.div`
   background-color: #ffc800;
-  padding: 1em;
   font-weight: 700;
   font-size: 1.4rem;
+`;
+
+const StyledLogo = styled.img`
+  max-height: 1.2em;
+`;
+
+const StyledPageTitle = styled.h1`
+  font-weight: 700;
+  font-size: 1.5em;
+  display: inline-block;
+  margin-left: 0.5em;
+`;
+
+const StyledNavLink = styled.div`
+  font-size: 0.8em;
+
+  a {
+    text-decoration: none;
+  }
 `;
