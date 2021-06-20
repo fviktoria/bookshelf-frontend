@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { Column } from '../components/layout/column';
 import { Container } from '../components/layout/container';
 import { Row } from '../components/layout/row';
+import { Input } from '../components/ui/input';
 import { authenticate } from '../util/authenticate';
 
 type LoginFormErrors = {
@@ -46,17 +47,19 @@ export const Login: FC = () => {
               /* and other goodies */
             }) => (
               <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
+                <Input
+                  type="email"
                   name="username"
+                  label="Username"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.username}
                 />
                 {errors.username && touched.username && errors.username}
-                <input
+                <Input
                   type="password"
                   name="password"
+                  label="Password"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
