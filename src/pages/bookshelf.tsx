@@ -7,7 +7,6 @@ export const Bookshelf: FC = () => {
   const user = useUserContext();
   console.log('bookshelf user', user);
   const [currentPage, setCurrentPage] = useState(1);
-  const data = useBookQuery(user && user.acf?.books, currentPage);
 
   return <BookList />;
 };

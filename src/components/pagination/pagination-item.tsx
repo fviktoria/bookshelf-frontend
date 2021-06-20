@@ -25,4 +25,8 @@ const StyledPaginationItem = styled.li<StyledPaginationItemProps>`
   padding: 0.2em 0.5em;
   border-radius: 0.2em;
   font-weight: ${({ active }) => (active ? 700 : 400)};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

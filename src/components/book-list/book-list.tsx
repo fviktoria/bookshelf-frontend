@@ -18,26 +18,52 @@ type BookListProps = {
 };
 
 export const BookList: FC<BookListProps> = ({ showAll = false }) => {
+  // state
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
-  //const location = useLocation();
+  const [totalPages, setTotalPages] = useState('0');
+
+  // context
   const user = useUserContext();
-  const data = useBookQuery(showAll ? undefined : user && user.acf?.books, currentPage, selectedGenres);
-  const { books, isLoading, headers } = data;
+
+  // queries
+  const { books, isLoading, headers } = useBookQuery(
+    showAll ? undefined : user && user.acf?.books,
+    currentPage,
+    selectedGenres,
+  );
   const { genres } = useGenreQuery();
 
-  const [totalPages, setTotalPages] = useState('0'); //headers && headers['x-wp-totalpages'];
   useEffect(() => {
-    data.headers && setTotalPages(data.headers['x-wp-totalpages']);
-  }, [data]);
+    headers && setTotalPages(headers['x-wp-totalpages']);
+  }, [headers]);
 
   return (
     <Container wide>
       <Row>
-        {/* <Column width={30}>{genres && <BookFilters filters={genres} onFilter={onFilter} />}</Column> */}
+        <Column width={30}>
+          {genres && (
+            <BookFilters
+              filters={genres}
+              onFilter={(e) => {
+                const selectedValue = (e.target as HTMLInputElement).value;
+                const isSelected = selectedGenres.indexOf(parseInt(selectedValue));
+                if (isSelected !== -1) {
+                  setSelectedGenres((prevState) => prevState.filter((item) => item !== parseInt(selectedValue)));
+                } else {
+                  setSelectedGenres((prevState) => [...prevState, parseInt(selectedValue)]);
+                }
+              }}
+            />
+          )}
+        </Column>
         <Column width={70}>
           {!isLoading && books.map((book) => <BookListItem book={book} key={book.ID} />)}
-          {/* <Pagination currentPage={currentPage} totalPages={parseInt(totalPages)} onClickItem={onPaginate} /> */}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={parseInt(totalPages)}
+            onClickItem={(e) => setCurrentPage(parseInt((e.target as HTMLElement).innerHTML))}
+          />
         </Column>
       </Row>
     </Container>
