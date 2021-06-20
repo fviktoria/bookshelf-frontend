@@ -9,13 +9,5 @@ export const Bookshelf: FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const data = useBookQuery(user && user.acf?.books, currentPage);
 
-  return (
-    <BookList
-      data={data}
-      onPaginate={(e) => {
-        setCurrentPage(parseInt((e.target as HTMLElement).innerHTML));
-      }}
-      currentPage={currentPage}
-    />
-  );
+  return <BookList />;
 };

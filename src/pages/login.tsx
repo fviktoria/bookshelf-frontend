@@ -48,7 +48,7 @@ export const Login: FC = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Input
-                  type="email"
+                  type="text"
                   name="username"
                   label="Username"
                   onChange={handleChange}
