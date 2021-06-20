@@ -8,6 +8,7 @@ import { Book } from './pages/book';
 import { Bookshelf } from './pages/bookshelf';
 import { Home } from './pages/home';
 import { Login } from './pages/login';
+import { Registration } from './pages/registration';
 import GlobalStyle from './util/global-styles';
 import { UserContext } from './util/user-context';
 
@@ -38,6 +39,7 @@ export const App = () => {
           <Route path="/book/:id">
             <Book />
           </Route>
+          <Route path="/registration">{!isLoading && user ? <Redirect to="/login" /> : <Registration />}</Route>
         </Router>
       </UserContext.Provider>
     </Fragment>
