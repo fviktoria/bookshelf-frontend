@@ -35,7 +35,7 @@ export const Comments: FC<CommentsProps> = ({ book }) => {
                 <strong>{comment.author_name}</strong>
                 <br />
                 <div dangerouslySetInnerHTML={{ __html: comment.content.rendered }} />
-                {user.id === comment.author && (
+                {user && (user.id === comment.author) && (
                   <button
                     onClick={() => {
                       if (window.confirm('Are you sure you wanna delete your comment?')) {
