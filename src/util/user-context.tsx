@@ -1,18 +1,18 @@
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
-import React, { Consumer, Context } from 'react';
+import React from 'react';
 import { MutatorCallback } from 'swr/dist/types';
 import { useUserQuery } from '../hooks/queries/use-user-query';
 import { User } from './types/user';
 import { UserToken } from './types/user-token';
 
-type UserContext = {
+type UserContextType = {
   user: User;
   mutateUser: MutatorCallback<User>;
   error: boolean;
 };
 
-const UserContext = React.createContext<Partial<UserContext>>({
+const UserContext = React.createContext<Partial<UserContextType>>({
   user: undefined,
   mutateUser: undefined,
   error: undefined,

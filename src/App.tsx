@@ -1,20 +1,16 @@
-import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
-import { Fragment, useMemo } from 'react';
+import { Fragment } from 'react';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import { Header } from './components/layout/header';
-import { useUserQuery } from './hooks/queries/use-user-query';
 import { Book } from './pages/book';
 import { Bookshelf } from './pages/bookshelf';
 import { Home } from './pages/home';
 import { Login } from './pages/login';
 import { Registration } from './pages/registration';
 import GlobalStyle from './util/global-styles';
-import { UserToken } from './util/types/user-token';
 import { UserContextConsumer, UserContextProvider, useUserContext } from './util/user-context';
 
 export const App = () => {
-  const { user, error } = useUserContext();
+  const { error } = useUserContext();
 
   return (
     <Fragment>

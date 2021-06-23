@@ -1,18 +1,13 @@
 import { Formik } from 'formik';
 import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Column } from '../components/layout/column';
 import { Container } from '../components/layout/container';
 import { Row } from '../components/layout/row';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
-import { fetchUser, useUserQuery } from '../hooks/queries/use-user-query';
 import { authenticate } from '../util/authenticate';
-import { User } from '../util/types/user';
-import { UserToken } from '../util/types/user-token';
-import { useUserContext } from '../util/user-context';
 
 type LoginFormErrors = {
   username?: string;
@@ -21,7 +16,6 @@ type LoginFormErrors = {
 
 export const Login: FC = () => {
   const history = useHistory();
-  const { mutateUser } = useUserContext();
 
   return (
     <Container>
