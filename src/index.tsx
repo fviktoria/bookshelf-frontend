@@ -24,7 +24,15 @@ let styles: string[] = [
   'border : 5px solid black',
 ];
 console.log('%c Have fun!', styles.join(';'));
-console.warn('The message above might not be working in Firefox.');
+console.error('The message above might not be working in Firefox.');
+
+let basicObject = {
+  this: 'is',
+  a: 'useless',
+  table: ':)',
+};
+console.table(basicObject);
+
 console.log('Beware of unicorns 🦄');
 
 // If you want your app to work offline and load faster, you can change
