@@ -24,7 +24,8 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
   const [order, setOrder] = useState('');
 
   // context
-  const user = useUserContext();
+  const { user } = useUserContext();
+  console.log('user?', user);
 
   // queries
   const { books, isLoading, headers } = useBookQuery(

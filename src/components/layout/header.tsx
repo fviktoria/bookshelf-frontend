@@ -24,7 +24,7 @@ type HeaderProps = {
 };
 
 export const Header: FC<HeaderProps> = ({ isLoggedIn }) => {
-  const user = useUserContext();
+  const { user, mutateUser } = useUserContext();
   const history = useHistory();
   const [permissionGranted, setPermissionGranted] = useState(isPermissionGranted());
 
@@ -94,6 +94,7 @@ export const Header: FC<HeaderProps> = ({ isLoggedIn }) => {
                 <StyledToolBarLink
                   onClick={() => {
                     Cookies.remove('token');
+                    if (mutateUser) mutateUser(user);
                     history.push('/');
                   }}
                 >

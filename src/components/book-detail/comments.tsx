@@ -22,7 +22,7 @@ type CommentFormErrors = {
 };
 
 export const Comments: FC<CommentsProps> = ({ book }) => {
-  const user = useUserContext();
+  const { user } = useUserContext();
   const { comments, mutate: mutateComments } = useCommentsQuery(book.ID);
 
   return (

@@ -18,5 +18,7 @@ export const Bookshelf: FC = () => {
     }
   }, [serviceWorkerReady]);
 
+  console.log('bookshelf');
+
   return <BookList />;
 };
