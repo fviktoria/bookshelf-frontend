@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 export const Book: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { books } = useBookQuery([id]);
+  const { books } = useBookQuery([parseInt(id)]);
   const book = books && books[0];
 
   return (

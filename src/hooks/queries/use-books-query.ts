@@ -6,7 +6,7 @@ import { Book } from '../../util/types/book';
 import { WPQueryPost } from '../../util/types/wp-query-post';
 
 export const fetchBooks = (
-  ids?: string[],
+  ids?: number[],
   page?: number,
   genres?: number[],
   orderby?: string,
@@ -24,7 +24,7 @@ export const fetchBooks = (
 };
 
 export const useBookQuery = (
-  ids?: string[],
+  ids?: number[],
   page?: number,
   genres?: number[],
   orderBy?: string,

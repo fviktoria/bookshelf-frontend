@@ -1,6 +1,6 @@
 export type User = {
   acf: {
-    books: string[];
+    books: number[];
     friends: false;
   };
   avatar_urls: any;

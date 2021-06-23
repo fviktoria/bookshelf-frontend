@@ -29,7 +29,7 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
 
   // queries
   const { books, isLoading, headers } = useBookQuery(
-    showAll ? undefined : (user && user.acf?.books && user.acf?.books.length > 0 && user.acf?.books) || ['-1'],
+    showAll ? undefined : (user && user.acf?.books && user.acf?.books.length > 0 && user.acf?.books) || [-1],
     currentPage,
     selectedGenres,
     orderBy,
