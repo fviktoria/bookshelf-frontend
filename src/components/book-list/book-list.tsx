@@ -77,11 +77,9 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
           </StyledSidebar>
         </Column>
         <Column width={70}>
-          {!isLoading && books && books.length > 0 ? (
-            books.map((book) => <BookListItem book={book} key={book.ID} />)
-          ) : (
-            <div>You have no books in your bookshelf</div>
-          )}
+          {!isLoading && books && books.length > 0
+            ? books.map((book) => <BookListItem book={book} key={book.ID} />)
+            : !isLoading && <div>You have no books in your bookshelf</div>}
           <Pagination
             currentPage={currentPage}
             totalPages={parseInt(totalPages)}
