@@ -8,6 +8,7 @@ import { WPQueryPost } from '../../util/types/wp-query-post';
 import { Column } from '../layout/column';
 import { Container } from '../layout/container';
 import { Row } from '../layout/row';
+import { BookCover } from '../ui/book-cover';
 
 type BookListItemProps = {
   book: WPQueryPost<Book>;
@@ -26,11 +27,7 @@ export const BookListItem: FC<BookListItemProps> = ({ book }) => {
       <Container wide>
         <Row>
           <Column width={30}>
-            {book.featured_image_url ? (
-              <StyledBookThumbnail src={book.featured_image_url} alt={book.post_title} />
-            ) : (
-              'No image found.'
-            )}
+            <BookCover src={book.featured_image_url} />
           </Column>
           <Column width={100}>
             <StyledBookListItemDescription>

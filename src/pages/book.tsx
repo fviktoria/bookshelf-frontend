@@ -11,6 +11,7 @@ import { useCommentsQuery } from '../hooks/queries/use-comments-query';
 import { API_WP } from '../util/constants';
 import { useUserContext } from '../util/user-context';
 import { Comments } from '../components/book-detail/comments';
+import { BookCover } from '../components/ui/book-cover';
 
 export const Book: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,11 +25,7 @@ export const Book: FC = () => {
         <Fragment>
           <Row>
             <Column width={25}>
-              {book.featured_image_url ? (
-                <img src={book.featured_image_url} alt={book.post_title + ' Cover'} />
-              ) : (
-                'No image found.'
-              )}
+              <BookCover src={book.featured_image_url} />
             </Column>
             <Column>
               <h2>{book.post_title}</h2>
