@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { useBookQuery } from '../../hooks/queries/use-books-query';
 import { useGenreQuery } from '../../hooks/queries/use-genre-query';
 import { useUserContext } from '../../util/user-context';
@@ -8,6 +9,7 @@ import { Row } from '../layout/row';
 import { Pagination } from '../pagination/pagination';
 import { BookFilters } from './book-filters';
 import { BookListItem } from './book-list-item';
+import { BookOrdering } from './book-ordering';
 
 type BookListProps = {
   showAll?: boolean;
@@ -18,6 +20,8 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [totalPages, setTotalPages] = useState('0');
+  const [orderBy, setOrderBy] = useState('');
+  const [order, setOrder] = useState('');
 
   // context
   const user = useUserContext();
@@ -27,6 +31,8 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
     showAll ? undefined : user && user.acf?.books,
     currentPage,
     selectedGenres,
+    orderBy,
+    order,
   );
   const { genres } = useGenreQuery();
 
@@ -38,20 +44,36 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
     <Container wide>
       <Row>
         <Column width={30}>
-          {genres && (
-            <BookFilters
-              filters={genres}
-              onFilter={(e) => {
-                const selectedValue = (e.target as HTMLInputElement).value;
-                const isSelected = selectedGenres.indexOf(parseInt(selectedValue));
-                if (isSelected !== -1) {
-                  setSelectedGenres((prevState) => prevState.filter((item) => item !== parseInt(selectedValue)));
-                } else {
-                  setSelectedGenres((prevState) => [...prevState, parseInt(selectedValue)]);
+          <StyledSidebar>
+            <strong>Filters</strong>
+            {genres && (
+              <BookFilters
+                filters={genres}
+                onFilter={(e) => {
+                  const selectedValue = (e.target as HTMLInputElement).value;
+                  const isSelected = selectedGenres.indexOf(parseInt(selectedValue));
+                  if (isSelected !== -1) {
+                    setSelectedGenres((prevState) => prevState.filter((item) => item !== parseInt(selectedValue)));
+                  } else {
+                    setSelectedGenres((prevState) => [...prevState, parseInt(selectedValue)]);
+                  }
+                }}
+              />
+            )}
+            <br />
+            <strong>Order</strong>
+            <BookOrdering
+              onOrder={(e) => {
+                const name = (e.target as HTMLInputElement).name;
+                const value = (e.target as HTMLInputElement).value;
+                if (name === 'orderBy') {
+                  setOrderBy(value);
+                } else if (name === 'order') {
+                  setOrder(value);
                 }
               }}
             />
-          )}
+          </StyledSidebar>
         </Column>
         <Column width={70}>
           {!isLoading && books.map((book) => <BookListItem book={book} key={book.ID} />)}
@@ -65,3 +87,11 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
     </Container>
   );
 };
+
+const StyledSidebar = styled.div`
+  padding: 1em;
+  margin: 0;
+  margin-right: 2em;
+  background-color: #f0f0f0;
+  border-radius: 1em;
+`;
