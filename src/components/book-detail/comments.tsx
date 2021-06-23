@@ -1,3 +1,5 @@
+import { faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Formik } from 'formik';
 import { FC, Fragment } from 'react';
 import styled from 'styled-components';
@@ -36,16 +38,17 @@ export const Comments: FC<CommentsProps> = ({ book }) => {
                 <br />
                 <div dangerouslySetInnerHTML={{ __html: comment.content.rendered }} />
                 {user && user.id === comment.author && (
-                  <button
+                  <Button
+                    variant="none"
                     onClick={() => {
                       if (window.confirm('Are you sure you wanna delete your comment?')) {
                         deleteComment(comment.id);
-                        mutateComments({ comments });
+                        mutateComments(comments.splice(comments.indexOf(comment), 1));
                       }
                     }}
                   >
-                    delete comment
-                  </button>
+                    <FontAwesomeIcon icon={faTrashAlt} /> delete comment
+                  </Button>
                 )}
               </StyledComment>
             ))}
@@ -65,8 +68,6 @@ export const Comments: FC<CommentsProps> = ({ book }) => {
               return errors;
             }}
             onSubmit={async (values, { setSubmitting, setFieldValue, setFieldTouched }) => {
-              console.log(values);
-
               try {
                 const res = await mutate(API_WP + '/comments', postComment(user.id || 0, values.message, book.ID));
 
