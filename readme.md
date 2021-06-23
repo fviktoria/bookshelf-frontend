@@ -6,6 +6,7 @@ A progressive web app made with React and WordPress backend for a uni project. T
 
 ## Important notes
 
+- "add to bookshelf" functionality was implemented in a rush and there was no time left; so a reload is necessary in order to show effect :-)
 - in order to activate notifications, you have to click the notification bell in the header (https://blog.mozilla.org/futurereleases/2019/11/04/restricting-notification-permission-prompts-in-firefox/)
 - notifications are not working in chrome, i couldn't find out why
 - page reloads after login -> temporary fix for a problem connected to React Context API
