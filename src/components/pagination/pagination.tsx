@@ -10,7 +10,6 @@ type PaginationProps = {
 
 export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onClickItem }) => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-  console.log('totalPages', pages);
 
   return (
     <StyledPagination>

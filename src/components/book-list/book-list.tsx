@@ -1,10 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { mutate } from 'swr';
-import { BookQueryRes, useBookQuery } from '../../hooks/queries/use-books-query';
+import { FC, useEffect, useState } from 'react';
+import { useBookQuery } from '../../hooks/queries/use-books-query';
 import { useGenreQuery } from '../../hooks/queries/use-genre-query';
-import { Book } from '../../util/types/book';
-import { Post } from '../../util/types/post';
 import { useUserContext } from '../../util/user-context';
 import { Column } from '../layout/column';
 import { Container } from '../layout/container';

@@ -5,7 +5,6 @@ import { API_URL } from './constants';
 const TOKEN = Cookies.get('token') || undefined;
 
 export const fetcher = async <Req>(method: Method, endpoint: string, data?: Req) => {
-  const headers = {};
   const res = await axios({
     method,
     url: `${API_URL}${endpoint}`,

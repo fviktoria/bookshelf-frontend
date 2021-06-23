@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { useImageQuery } from '../../hooks/queries/use-image-query';
 import { Book } from '../../util/types/book';
-import { Post } from '../../util/types/post';
 import { WPQueryPost } from '../../util/types/wp-query-post';
 import { Column } from '../layout/column';
 import { Container } from '../layout/container';
@@ -59,10 +57,4 @@ const StyledBookListItemDescription = styled.div`
 
 const StyledBookListItemTitle = styled.h3`
   margin: 0;
-`;
-
-const StyledBookThumbnail = styled.img`
-  width: 100%;
-  display: block;
-  border-radius: 1em;
 `;
