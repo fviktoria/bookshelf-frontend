@@ -25,7 +25,6 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
 
   // context
   const { user } = useUserContext();
-  console.log('user?', user);
 
   // queries
   const { books, isLoading, headers } = useBookQuery(

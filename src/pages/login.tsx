@@ -45,12 +45,9 @@ export const Login: FC = () => {
 
               if (res.token) {
                 Cookies.set('token', res.token, { expires: 1 });
-
-                const user = await fetchUser((jwtDecode(res.token) as UserToken).data.user.id);
-                console.log('user on login', user.data);
-
-                if (mutateUser) await mutateUser(user.data);
                 history.push('/');
+                /** TODO: fix this!! - temporary fix because user context isn't set and mutate doesn't work */
+                window.location.reload();
               }
 
               setSubmitting(false);

@@ -52,7 +52,7 @@ export const Registration: FC = () => {
                 const res = await registerUser(values.username, values.email, values.password);
                 if (res) {
                   console.log(res);
-                  //history.push('/login');
+                  history.push('/login');
                 }
               } catch (error) {
                 setResError(true);
