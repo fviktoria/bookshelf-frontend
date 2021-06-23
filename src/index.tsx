@@ -24,15 +24,6 @@ let styles: string[] = [
 ];
 console.log('%c Have fun!', styles.join(';'));
 
-// push notification
-const requestNotificationPermission = () => {
-  Notification.requestPermission().then((result) => {
-    console.log('notifications permitted');
-  });
-};
-
-requestNotificationPermission();
-
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useUserContext } from '../../util/user-context';
@@ -6,6 +6,9 @@ import { Column } from './column';
 import { Container } from './container';
 import { Row } from './row';
 import Logo from '../../assets/images/bookshelf-icon.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell, faBellSlash } from '@fortawesome/free-solid-svg-icons';
+import { askNotificationPermission, isPermissionGranted } from '../../util/notifications';
 
 type HeaderProps = {
   isLoggedIn: boolean;
@@ -13,6 +16,7 @@ type HeaderProps = {
 
 export const Header: FC<HeaderProps> = ({ isLoggedIn }) => {
   const user = useUserContext();
+  const [permissionGranted, setPermissionGranted] = useState(isPermissionGranted());
 
   return (
     <StyledHeader>
@@ -25,6 +29,26 @@ export const Header: FC<HeaderProps> = ({ isLoggedIn }) => {
             </Link>
           </Column>
           <Column>
+            {user && (
+              <StyledNavLink>
+                {permissionGranted ? (
+                  <span>
+                    <FontAwesomeIcon icon={faBell} />
+                    Notifications on
+                  </span>
+                ) : (
+                  <span>
+                    <FontAwesomeIcon
+                      icon={faBellSlash}
+                      onClick={() => {
+                        if (askNotificationPermission()) setPermissionGranted(true);
+                      }}
+                    />
+                    Notifications off
+                  </span>
+                )}
+              </StyledNavLink>
+            )}
             {!user && (
               <StyledNavLink>
                 <Link to="/login">Login</Link>
