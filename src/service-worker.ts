@@ -99,3 +99,7 @@ self.addEventListener('fetch', function (event) {
     }),
   );
 });
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(Notification.requestPermission());
+});
