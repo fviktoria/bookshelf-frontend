@@ -6,8 +6,8 @@ export const fetchUser = (id?: string): Promise<any> => {
   return fetcher('GET', API_WP + '/users/' + id);
 };
 
-export const useUserQuery = (id: string = '0'): UserQueryRes => {
-  const { data, error } = useSWR('/users/' + id, () => fetchUser(id));
+export const useUserQuery = (id?: string): UserQueryRes => {
+  const { data, error } = useSWR(() => id ? '/users/' + id : null, () => fetchUser(id));
   return {
     user: data && data.data,
     error,
