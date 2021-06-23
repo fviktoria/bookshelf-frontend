@@ -6,6 +6,7 @@ import { Row } from '../components/layout/row';
 import { useBookQuery } from '../hooks/queries/use-books-query';
 import { Comments } from '../components/book-detail/comments';
 import { BookCover } from '../components/ui/book-cover';
+import styled from 'styled-components';
 
 export const Book: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,8 +21,10 @@ export const Book: FC = () => {
             <Column width={25}>
               <BookCover src={book.featured_image_url} />
             </Column>
-            <Column>
-              <h2>{book.post_title}</h2>
+            <Column width={75}>
+              <StyledBookTitle>{book.post_title}</StyledBookTitle>
+              {book.acf.authors && book.acf.authors.map((author) => author.post_title)}
+              {book.acf.description && <p>{book.acf.description}</p>}
             </Column>
           </Row>
           <Comments book={book} />
@@ -30,3 +33,7 @@ export const Book: FC = () => {
     </Container>
   );
 };
+
+const StyledBookTitle = styled.h2`
+  margin: 0;
+`;

@@ -16,6 +16,7 @@ export const Row: FC<RowProps> = ({ justify, align, children }) => {
 
 const StyledRow = styled.div<RowProps>`
   display: flex;
+  gap: 1em;
   ${({ justify }) => justify && 'justify-content:' + justify};
   ${({ align }) => align && 'align-items:' + align};
 `;

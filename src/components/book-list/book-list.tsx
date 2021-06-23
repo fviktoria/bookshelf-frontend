@@ -91,7 +91,6 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
 const StyledSidebar = styled.div`
   padding: 1em;
   margin: 0;
-  margin-right: 2em;
   background-color: #f0f0f0;
   border-radius: 1em;
 `;

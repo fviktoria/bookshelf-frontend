@@ -28,11 +28,11 @@ export const BookListItem: FC<BookListItemProps> = ({ book }) => {
             <BookCover src={book.featured_image_url} />
           </Column>
           <Column width={100}>
-            <StyledBookListItemDescription>
+            <div>
               <StyledBookListItemTitle>{book.post_title}</StyledBookListItemTitle>
               {book.acf.authors && book.acf.authors.map((author) => author.post_title)}
               {book.acf.description && <p>{book.acf.description.substring(0, 250) + '...'}</p>}
-            </StyledBookListItemDescription>
+            </div>
           </Column>
         </Row>
       </Container>
@@ -49,10 +49,6 @@ const StyledBookListItem = styled.div`
   &:hover {
     cursor: pointer;
   }
-`;
-
-const StyledBookListItemDescription = styled.div`
-  padding-left: 1em;
 `;
 
 const StyledBookListItemTitle = styled.h3`
