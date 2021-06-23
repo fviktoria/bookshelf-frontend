@@ -1,7 +1,7 @@
 import React from 'react';
 import { User } from './types/user';
 
-const UserContext = React.createContext<Partial<User>>({});
+const UserContext = React.createContext<any>({});
 
 export { UserContext };
 

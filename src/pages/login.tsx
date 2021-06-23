@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { FC } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Column } from '../components/layout/column';
 import { Container } from '../components/layout/container';
 import { Row } from '../components/layout/row';
@@ -13,6 +14,8 @@ type LoginFormErrors = {
 };
 
 export const Login: FC = () => {
+  const history = useHistory();
+
   return (
     <Container>
       <Row>
@@ -31,6 +34,7 @@ export const Login: FC = () => {
 
               if (res.token) {
                 Cookies.set('token', res.token, { expires: 1 });
+                history.push('/');
               }
 
               setSubmitting(false);

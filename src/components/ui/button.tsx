@@ -3,16 +3,16 @@ import styled from 'styled-components';
 import { COLORS } from '../../util/theme';
 
 type ButtonProps = {
-  title: string;
-  type: 'button' | 'submit';
+  title?: string;
+  type?: 'button' | 'submit';
   onClick?: (e: React.MouseEvent) => void;
   disabled?: boolean;
 };
 
-export const Button: FC<ButtonProps> = ({ type, title, onClick, disabled }) => {
+export const Button: FC<ButtonProps> = ({ type = 'button', title, onClick, disabled, children }) => {
   return (
-    <StyledButton type={type} onClick={onClick} disabled={disabled}>
-      {title}
+    <StyledButton type={type} onClick={onClick} disabled={disabled} title={title}>
+      {children ? children : title}
     </StyledButton>
   );
 };
