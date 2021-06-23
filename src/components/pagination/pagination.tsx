@@ -14,7 +14,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onCli
   return (
     <StyledPagination>
       {pages.map((page) => (
-        <PaginationItem number={page} active={currentPage === page} onClick={onClickItem} />
+        <PaginationItem number={page} active={currentPage === page} onClick={onClickItem} key={page}/>
       ))}
     </StyledPagination>
   );
