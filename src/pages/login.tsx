@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { Column } from '../components/layout/column';
 import { Container } from '../components/layout/container';
 import { Row } from '../components/layout/row';
+import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { authenticate } from '../util/authenticate';
 
@@ -26,6 +27,10 @@ export const Login: FC = () => {
               const errors: LoginFormErrors = {};
               if (!values.username) {
                 errors.username = 'Required';
+              }
+
+              if (!values.password) {
+                errors.password = 'Required';
               }
               return errors;
             }}
@@ -58,8 +63,9 @@ export const Login: FC = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.username}
+                  error={errors.username && touched.username ? errors.username : undefined}
                 />
-                {errors.username && touched.username && errors.username}
+
                 <Input
                   type="password"
                   name="password"
@@ -67,12 +73,12 @@ export const Login: FC = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
+                  error={errors.password && touched.password ? errors.password : undefined}
                 />
-                {errors.password && touched.password && errors.password}
                 <br />
-                <button type="submit" disabled={isSubmitting}>
-                  Submit
-                </button>
+                <Button type="submit" disabled={isSubmitting}>
+                  Login
+                </Button>
               </form>
             )}
           </Formik>

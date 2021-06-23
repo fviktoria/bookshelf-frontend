@@ -1,9 +1,12 @@
 import { Formik } from 'formik';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Column } from '../components/layout/column';
 import { Container } from '../components/layout/container';
 import { Row } from '../components/layout/row';
+import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
+import { FormError } from '../components/ui/form-error';
 import { registerUser } from '../hooks/mutations/use-registration-mutation';
 
 type RegistrationFormErrors = {
@@ -14,6 +17,9 @@ type RegistrationFormErrors = {
 };
 
 export const Registration: FC = () => {
+  const history = useHistory();
+  const [resError, setResError] = useState(false);
+
   return (
     <Container>
       <Row>
@@ -25,6 +31,19 @@ export const Registration: FC = () => {
               if (!values.username) {
                 errors.username = 'Required';
               }
+
+              if (!values.email) {
+                errors.email = 'Required';
+              }
+
+              if (!values.password) {
+                errors.password = 'Required';
+              }
+
+              if (!values.passwordRepeat || values.password !== values.passwordRepeat) {
+                errors.passwordRepeat = 'Password and password repeat do not match.';
+              }
+
               return errors;
             }}
             onSubmit={async (values, { setSubmitting }) => {
@@ -33,8 +52,10 @@ export const Registration: FC = () => {
                 const res = await registerUser(values.username, values.email, values.password);
                 if (res) {
                   console.log(res);
+                  //history.push('/login');
                 }
               } catch (error) {
+                setResError(true);
                 console.log(error);
               }
 
@@ -49,6 +70,7 @@ export const Registration: FC = () => {
               handleBlur,
               handleSubmit,
               isSubmitting,
+              isValid,
               /* and other goodies */
             }) => (
               <form onSubmit={handleSubmit}>
@@ -59,8 +81,8 @@ export const Registration: FC = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.username}
+                  error={errors.username && touched.username ? errors.username : undefined}
                 />
-                {errors.username && touched.username && errors.username}
                 <Input
                   type="email"
                   name="email"
@@ -68,6 +90,7 @@ export const Registration: FC = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
+                  error={errors.email && touched.email ? errors.email : undefined}
                 />
                 <Input
                   type="password"
@@ -76,8 +99,8 @@ export const Registration: FC = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
+                  error={errors.password && touched.password ? errors.password : undefined}
                 />
-                {errors.password && touched.password && errors.password}
                 <Input
                   type="password"
                   name="passwordRepeat"
@@ -85,11 +108,14 @@ export const Registration: FC = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.passwordRepeat}
+                  error={errors.passwordRepeat && touched.passwordRepeat ? errors.passwordRepeat : undefined}
                 />
                 <br />
-                <button type="submit" disabled={isSubmitting}>
-                  Submit
-                </button>
+                <Button type="submit" disabled={isSubmitting}>
+                  Register
+                </Button>
+                <br />
+                {resError && <FormError>There was an error submitting the form.</FormError>}
               </form>
             )}
           </Formik>

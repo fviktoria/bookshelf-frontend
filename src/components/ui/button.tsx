@@ -30,4 +30,8 @@ const StyledButton = styled.button`
     cursor: pointer;
     background-color: transparent;
   }
+
+  &[disabled] {
+    opacity: 0.5;
+  }
 `;

@@ -148,6 +148,7 @@ const StyledNavigation = styled.ul`
   display: flex;
   align-items: center;
   margin: 0;
+  justify-content: flex-end;
 `;
 
 const StyledToolBar = styled.ul`
@@ -155,6 +156,7 @@ const StyledToolBar = styled.ul`
   display: flex;
   align-items: center;
   margin: 0;
+  justify-content: flex-end;
 `;
 
 const StyledToolBarLink = styled.li`
