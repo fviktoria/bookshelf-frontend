@@ -113,6 +113,7 @@ const StyledHeader = styled.div`
   background-color: #ffc800;
   font-weight: 700;
   font-size: 1.4rem;
+  margin-bottom: 1em;
 `;
 
 const StyledLogo = styled.img`

@@ -44,7 +44,7 @@ const StyledBookListItem = styled.div`
   padding: 1em 0;
   border-radius: 1em;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  margin: 0.5em 0;
+  margin-bottom: 0.8em;
 
   &:hover {
     cursor: pointer;

@@ -35,7 +35,7 @@ export const Comments: FC<CommentsProps> = ({ book }) => {
                 <strong>{comment.author_name}</strong>
                 <br />
                 <div dangerouslySetInnerHTML={{ __html: comment.content.rendered }} />
-                {user && (user.id === comment.author) && (
+                {user && user.id === comment.author && (
                   <button
                     onClick={() => {
                       if (window.confirm('Are you sure you wanna delete your comment?')) {
@@ -102,8 +102,10 @@ export const Comments: FC<CommentsProps> = ({ book }) => {
               </form>
             )}
           </Formik>
-        ) : (
+        ) : book.comment_status === 'open' ? (
           'Log in to post a comment.'
+        ) : (
+          'Comments are not allowed for this page.'
         )}
       </StyledCommentsArea>
     </Fragment>
@@ -127,7 +129,6 @@ const StyledComment = styled.div`
 `;
 
 const StyledNoCommentsMessage = styled.div`
-  background-color: #dedede;
   font-weight: 700;
   font-size: 1.2em;
   text-align: center;
