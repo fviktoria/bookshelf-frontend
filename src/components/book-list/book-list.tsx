@@ -25,10 +25,11 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
 
   // context
   const { user } = useUserContext();
+  console.log(user);
 
   // queries
   const { books, isLoading, headers } = useBookQuery(
-    showAll ? undefined : user && user.acf?.books,
+    showAll ? undefined : (user && user.acf?.books && user.acf?.books.length > 0 && user.acf?.books) || ['-1'],
     currentPage,
     selectedGenres,
     orderBy,
@@ -76,7 +77,11 @@ export const BookList: FC<BookListProps> = ({ showAll = false }) => {
           </StyledSidebar>
         </Column>
         <Column width={70}>
-          {!isLoading && books.map((book) => <BookListItem book={book} key={book.ID} />)}
+          {!isLoading && books && books.length > 0 ? (
+            books.map((book) => <BookListItem book={book} key={book.ID} />)
+          ) : (
+            <div>You have no books in your bookshelf</div>
+          )}
           <Pagination
             currentPage={currentPage}
             totalPages={parseInt(totalPages)}

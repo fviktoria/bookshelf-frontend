@@ -10,20 +10,22 @@ type UserContextType = {
   user: User;
   mutateUser: MutatorCallback<User>;
   error: boolean;
+  userLoading: undefined;
 };
 
 const UserContext = React.createContext<Partial<UserContextType>>({
   user: undefined,
   mutateUser: undefined,
   error: undefined,
+  userLoading: undefined,
 });
 
 export const UserContextProvider = ({ props, children }: any) => {
   const token = Cookies.get('token');
   const decodedToken: UserToken | undefined = token ? jwtDecode(token) : undefined;
-  const { user, error, mutate: mutateUser } = useUserQuery(decodedToken?.data.user.id);
+  const { user, error, mutate: mutateUser, isLoading: userLoading } = useUserQuery(decodedToken?.data.user.id);
 
-  const value = React.useMemo(() => ({ user, mutateUser, error }), [user, mutateUser, error]);
+  const value = React.useMemo(() => ({ user, mutateUser, error, userLoading }), [user, mutateUser, error, userLoading]);
 
   return (
     <UserContext.Provider value={value} {...props}>
