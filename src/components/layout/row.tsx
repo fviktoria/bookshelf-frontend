@@ -19,4 +19,8 @@ const StyledRow = styled.div<RowProps>`
   gap: 1em;
   ${({ justify }) => justify && 'justify-content:' + justify};
   ${({ align }) => align && 'align-items:' + align};
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;

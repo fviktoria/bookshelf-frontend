@@ -28,10 +28,10 @@ export const BookListItem: FC<BookListItemProps> = ({ book }) => {
     >
       <Container wide>
         <Row>
-          <Column width={30}>
+          <Column colWidth={30}>
             <BookCover src={book.featured_image_url} />
           </Column>
-          <Column width={100}>
+          <Column colWidth={100}>
             <div>
               <StyledBookListItemTitle>{book.post_title}</StyledBookListItemTitle>
               {book.acf.authors && book.acf.authors.map((author) => author.post_title)}

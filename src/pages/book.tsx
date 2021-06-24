@@ -18,10 +18,10 @@ export const Book: FC = () => {
       {book && (
         <Fragment>
           <Row>
-            <Column width={25}>
+            <Column colWidth={25}>
               <BookCover src={book.featured_image_url} />
             </Column>
-            <Column width={75}>
+            <Column colWidth={75}>
               <StyledBookTitle>{book.post_title}</StyledBookTitle>
               {book.acf.authors && book.acf.authors.map((author) => author.post_title)}
               {book.acf.description && <p>{book.acf.description}</p>}
