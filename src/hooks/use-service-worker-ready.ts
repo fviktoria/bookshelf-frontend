@@ -4,9 +4,10 @@ export const useServiceWorkerReady = () => {
   const [serviceWorkerReady, setServiceWorkerReady] = useState(false);
 
   useEffect(() => {
-    navigator.serviceWorker.ready.then(() => {
-      setServiceWorkerReady(true);
-    });
+    navigator.serviceWorker &&
+      navigator.serviceWorker.ready.then(() => {
+        setServiceWorkerReady(true);
+      });
   });
 
   return serviceWorkerReady;
